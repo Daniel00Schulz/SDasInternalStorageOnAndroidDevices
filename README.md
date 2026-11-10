@@ -1,57 +1,60 @@
 # SD as Internal Storage on Android Devices
 
-Ferramenta gráfica para Windows que usa o ADB para listar o cartão de memória de um aparelho Android, formatá-lo como **armazenamento interno** (armazenamento adotável) ou voltá-lo ao **modo portátil**.
+**English** | [Português (Brasil)](README.pt-BR.md)
 
-Muitos fabricantes e operadoras escondem a opção "Formatar como interno" do menu do cartão, mesmo quando o Android suporta o recurso. A ferramenta usa os comandos do próprio sistema (`sm`), que continuam disponíveis.
+A Windows GUI tool that uses ADB to list an Android device's memory card, format it as **internal storage** (adoptable storage) or return it to **portable mode**.
 
-> **Atenção:** as duas opções de formatação apagam todo o conteúdo do cartão.
+Many manufacturers and carriers hide the "Format as internal" option from the card menu, even when Android supports the feature. This tool uses the system's own commands (`sm`), which remain available.
 
-## Recursos
+> **Warning:** both formatting options erase everything on the card.
 
-- Encontra o `adb.exe` no PATH ou no Android SDK.
-- Lista os aparelhos conectados e avisa quando falta autorizar o PC.
-- Mostra cada cartão com tamanho, modo atual (Portátil, Armazenamento interno ou Misto), volumes e espaço usado.
-- Mostra a versão do Android e se o aparelho aceita armazenamento adotável. Desativa os botões que não se aplicam.
-- Pede confirmação antes de formatar e registra cada comando e a resposta.
-- Tela inicial de dicas: como ativar o modo de desenvolvedor e a Depuração USB, versões do Android suportadas e problemas comuns.
+## Features
 
-## Requisitos
+- Finds `adb.exe` in PATH or in the Android SDK.
+- Lists connected devices and warns when the PC still needs to be authorised.
+- Shows each card with its size, current mode (Portable, Internal storage or Mixed), volumes and used space.
+- Shows the Android version and whether the device supports adoptable storage, and disables buttons that do not apply.
+- Asks for confirmation before formatting and logs every command and its output.
+- Startup tips screen: how to turn on Developer options and USB debugging, supported Android versions and common issues.
+- Interface in the Windows display language: Brazilian Portuguese on Portuguese systems, International English on all others. Use `-Lang pt` or `-Lang en` to force a language.
 
-- Windows 10 ou 11 (Windows PowerShell 5.1, já incluído).
+## Requirements
+
+- Windows 10 or 11 (Windows PowerShell 5.1, included).
 - [Android SDK Platform-Tools](https://developer.android.com/tools/releases/platform-tools) (`adb`).
-- Aparelho com Android 6.0 ou mais novo, com a Depuração USB ativada.
+- A device running Android 6.0 or newer, with USB debugging turned on.
 
-## Versões do Android
+## Android versions
 
-| Versão | Cartão como armazenamento interno |
+| Version | Card as internal storage |
 |---|---|
-| 5.1 ou anterior | Não suportado |
-| 6.0 a 8.1 | Suportado; costuma aparecer no menu do cartão |
-| 9 a 15 | Suportado pelo sistema; muitos fabricantes escondem a opção do menu |
-| Mais novas que 15 | Não verificado |
+| 5.1 or earlier | Not supported |
+| 6.0 to 8.1 | Supported; usually shown in the card menu |
+| 9 to 15 | Supported by the system; many manufacturers hide the option from the menu |
+| Newer than 15 | Not verified |
 
-Alguns fabricantes (por exemplo, aparelhos Samsung Galaxy recentes) bloqueiam o recurso. Nesse caso a ferramenta mostra "Suporte a armazenamento interno: não" e só permite o modo portátil.
+Some manufacturers (for example, recent Samsung Galaxy devices) block the feature. In that case the tool shows "Internal storage support: no" and only allows portable mode.
 
-Testado em: TCL TAB 10 5G (9183W, firmware T-Mobile), Android 12.
+Tested on: TCL TAB 10 5G (9183W, T-Mobile firmware), Android 12.
 
-## Como usar
+## How to use
 
-1. No aparelho, ative as **Opções do desenvolvedor** (toque 7 vezes em *Configurações > Sobre o telefone > Número da versão*) e a **Depuração USB**.
-2. Conecte o cabo, desbloqueie a tela e aceite o aviso **"Permitir depuração USB?"**.
-3. No PC, abra **`Cartao SD ADB.bat`** (ou rode o comando abaixo).
-4. Clique em **Listar cartões**, selecione o cartão e escolha a ação.
+1. On the device, turn on **Developer options** (tap *Settings > About phone > Build number* 7 times) and **USB debugging**.
+2. Connect the cable, unlock the screen and accept the **"Allow USB debugging?"** prompt.
+3. On the PC, open **`Cartao SD ADB.bat`** (or run the command below).
+4. Click **List cards**, select the card and choose the action.
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -STA -File sd_adb_tool.ps1
 ```
 
-Depois de formatar como interno, mova os apps em *Configurações > Apps > [app] > Armazenamento > Alterar*. Antes de remover o cartão ou voltar ao modo portátil, traga os apps de volta para a memória interna.
+After formatting as internal, move apps in *Settings > Apps > [app] > Storage > Change*. Before removing the card or returning to portable mode, move the apps back to internal storage.
 
-## Comandos usados
+## Commands used
 
-| Ação | Comando |
+| Action | Command |
 |---|---|
-| Listar cartões | `adb shell dumpsys mount` |
-| Verificar suporte | `adb shell sm has-adoptable` |
-| Formatar como interno | `adb shell sm partition <disco> private` |
-| Voltar ao modo portátil | `adb shell sm partition <disco> public` |
+| List cards | `adb shell dumpsys mount` |
+| Check support | `adb shell sm has-adoptable` |
+| Format as internal | `adb shell sm partition <disk> private` |
+| Return to portable mode | `adb shell sm partition <disk> public` |
