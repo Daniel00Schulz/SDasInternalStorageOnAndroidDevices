@@ -58,3 +58,7 @@ After formatting as internal, move apps in *Settings > Apps > [app] > Storage > 
 | Check support | `adb shell sm has-adoptable` |
 | Format as internal | `adb shell sm partition <disk> private` |
 | Return to portable mode | `adb shell sm partition <disk> public` |
+
+## License
+
+[MIT](LICENSE)

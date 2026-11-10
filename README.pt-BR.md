@@ -58,3 +58,7 @@ Depois de formatar como interno, mova os apps em *Configurações > Apps > [app]
 | Verificar suporte | `adb shell sm has-adoptable` |
 | Formatar como interno | `adb shell sm partition <disco> private` |
 | Voltar ao modo portátil | `adb shell sm partition <disco> public` |
+
+## Licença
+
+[MIT](LICENSE)
